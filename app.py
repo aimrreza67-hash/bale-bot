@@ -35,4 +35,4 @@ def webhook():
         members = db.get(group_id, {}).get("members", [])
         return " ".join(members)
 
-        return "ok"
+    return "ok"
