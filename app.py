@@ -27,12 +27,12 @@ def webhook():
     group_id = message.get("chat", {}).get("id")
 
      
-    if username:
-        add_member(db, group_id, f"@{username}")
+if username:
+    add_member(db, group_id, f"@{username}")
 
     
-    if text == "@all":
-        members = db.get(group_id, {}).get("members", [])
-        return " ".join(members)
+if text == "/all":
+    members = db.get(group_id, {}).get("members", [])
+    return " ".join(members)
 
     return "ok"
