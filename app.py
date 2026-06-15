@@ -26,13 +26,21 @@ def webhook():
     username = message.get("from", {}).get("username")
     group_id = message.get("chat", {}).get("id")
 
-     
-    if username:
-        add_member(db, group_id, f"@{username}")
+    print("TEXT:", text)
+    print("USERNAME:", username)
+    print("GROUP:", group_id)
 
-    
-    if text == "/all":
-        members = db.get(group_id, {}).get("members", [])
+    if group_id not in db:
+        db[group_id] = {"members": []}
+
+    if username:
+        user = f"@{username}"
+        if user not in db[group_id]["members"]:
+            db[group_id]["members"].append(user)
+
+    if text == "@all":
+        members = db[group_id]["members"]
+        print("ALL MEMBERS:", members)
         return " ".join(members)
 
     return "ok"
